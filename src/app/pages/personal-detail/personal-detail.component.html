@@ -1,0 +1,36 @@
+<mat-toolbar color="primary">
+  <button
+    mat-icon-button
+    aria-label="Back to Dashboard"
+    (click)="navigateToDashboard()"
+  >
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span style="flex: 1; text-align: center; font-weight: bold">
+    Personal Details
+  </span>
+</mat-toolbar>
+
+<div class="personal-detail-container">
+  <mat-card>
+    <h2>Update Your Details</h2>
+    <form [formGroup]="personalDetailForm" (ngSubmit)="updatePersonalDetails()">
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!personalDetailForm.valid"
+      >
+        Update
+      </button>
+    </form>
+  </mat-card>
+</div>

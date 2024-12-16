@@ -1,0 +1,92 @@
+<mat-toolbar color="primary">
+  <button
+    mat-icon-button
+    aria-label="Profile"
+    (click)="navigateToPersonalDetail()"
+  >
+    <mat-icon>person</mat-icon>
+  </button>
+  <span style="flex: 1; text-align: center; font-weight: bold">
+    Task Management
+  </span>
+  <button mat-raised-button color="accent" (click)="openTaskModal()">
+    New Task
+  </button>
+</mat-toolbar>
+
+<div class="dashboard-container">
+  <mat-card>
+    <div class="task-list-header">
+      <h2>Your Tasks</h2>
+      <mat-form-field appearance="fill">
+        <mat-label>Filter tasks</mat-label>
+        <input
+          matInput
+          (keyup)="applyFilter($event)"
+          placeholder="Search tasks..."
+        />
+      </mat-form-field>
+    </div>
+    <table
+      mat-table
+      [dataSource]="filteredTasks"
+      matSort
+      class="mat-elevation-z8"
+    >
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+        <td mat-cell *matCellDef="let task">{{ task.title }}</td>
+      </ng-container>
+
+      <!-- Description Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+        <td mat-cell *matCellDef="let task">{{ task.description }}</td>
+      </ng-container>
+
+      <!-- Priority Column -->
+      <ng-container matColumnDef="priority">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Priority</th>
+        <td mat-cell *matCellDef="let task">{{ task.priority }}</td>
+      </ng-container>
+
+      <!-- Due Date Column -->
+      <ng-container matColumnDef="dueDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Due Date</th>
+        <td mat-cell *matCellDef="let task">
+          {{ task.dueDate | date : "shortDate" }}
+        </td>
+      </ng-container>
+
+      <!-- Completed Column -->
+      <ng-container matColumnDef="completed">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Completed</th>
+        <td mat-cell *matCellDef="let task">
+          <mat-slide-toggle
+            [checked]="task.completed"
+            color="primary"
+            (change)="toggleTaskCompletion(task)"
+          >
+          </mat-slide-toggle>
+        </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let task">
+          <button mat-icon-button color="primary" (click)="editTask(task)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteTask(task.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </mat-card>
+</div>

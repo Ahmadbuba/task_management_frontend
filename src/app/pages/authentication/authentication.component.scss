@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+  //   min-height: 100dvh; /* Make the container fill the viewport height */
+}
+
+.login-card {
+  width: 300px; /* Adjust as needed */
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.button-group {
+  text-align: center;
+}
